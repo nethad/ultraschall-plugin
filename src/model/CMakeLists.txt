@@ -1,0 +1,23 @@
+set(PUBLIC_MODEL_INCLUDES
+  ${PUBLIC_INCLUDE_PATH}/model.h
+  ${PUBLIC_INCLUDE_PATH}/modelchapterimage.h
+  ${PUBLIC_INCLUDE_PATH}/modelchaptertag.h
+  ${PUBLIC_INCLUDE_PATH}/modelchapterurl.h
+  ${PUBLIC_INCLUDE_PATH}/modelglobals.h
+)
+
+set(PRIVATE_MODEL_INCLUDES
+  modelclass.h
+  modelcommon.h
+)
+
+set(PRIVATE_MODEL_SOURCES
+)
+
+add_library(${ULTRASCHALL_MODEL_NAME} SHARED
+  ${PUBLIC_MODEL_INCLUDES}
+  ${PRIVATE_MODEL_INCLUDES}
+  ${PRIVATE_MODEL_INCLUDES}
+)
+
+set_target_properties(${ULTRASCHALL_MODEL_NAME} PROPERTIES LINKER_LANGUAGE CXX)

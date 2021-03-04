@@ -1,0 +1,31 @@
+set(REAPER_INCLUDES
+  reaper.h
+  reaperclass.h
+  reapercommon.h
+  reapercustomaction.h
+  reapercustomactionfactory.h
+  reapercustomactionmanager.h
+  reaperentrypoints.h
+  reapergateway.h
+  reaperglobals.h
+  reapericustomaction.h
+  reapernotification.h
+  reapernotificationclass.h
+  reapernotificationqueue.h
+  reapernotificationstore.h
+  reaperproject.h
+  reapersystemproperties.h
+)
+
+set(REAPER_SOURCES
+  reapercustomaction.cpp
+  reapercustomactionfactory.cpp
+  reapercustomactionmanager.cpp
+  reaperentrypoints.cpp
+  reapergateway.cpp
+  reaperproject.cpp
+  reapernotification.cpp
+  reapernotificationqueue.cpp
+  reapernotificationstore.cpp
+  reapersystemproperties.cpp
+)

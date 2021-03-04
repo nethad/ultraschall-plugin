@@ -24,21 +24,11 @@
 #
 ################################################################################
 
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.12)
+project(reaper_ultraschall LANGUAGES C CXX VERSION 4.0)
 
-project(reaper_ultraschall
-  VERSION 4.1.0
-  DESCRIPTION "Podcasting extensions for REAPER"
-  LANGUAGES C CXX
-)
-
-if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-  set(CMAKE_CXX_EXTENSIONS OFF)
-  set(CMAKE_CXX_STANDARD 17)
-  set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-  set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-endif()
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(WIN32)
     set(ULTRASCHALL_TARGET_SYSTEM "win32")
@@ -64,22 +54,19 @@ elseif(UNIX)
   endif()
 endif()
 
-set(CMAKE_POSITION_INDEPENDENT_CODE ON  CACHE INTERNAL  "")
-set(CMAKE_WARN_DEPRECATED           OFF CACHE INTERNAL "")
-set(BUILD_SHARED_LIBS               OFF CACHE INTERNAL "")
+include(cmake/GlobalArgs.cmake)
 
 message(STATUS "ULTRASCHALL_TARGET_SYSTEM = " ${ULTRASCHALL_TARGET_SYSTEM})
-include(cmake/${ULTRASCHALL_TARGET_SYSTEM}.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/${ULTRASCHALL_TARGET_SYSTEM}.cmake)
 
-# message(STATUS "LIBZ_INCLUDE_PATH     = ${LIBZ_INCLUDE_PATH}")
-# message(STATUS "LIBZ_LIBRARY_PATH     = ${LIBZ_LIBRARY_PATH}")
-# message(STATUS "LIBZ_SOURCE_PATH      = ${LIBZ_SOURCE_PATH}")
-# message(STATUS "LIBCURL_INCLUDE_PATH  = ${LIBCURL_INCLUDE_PATH}")
-# message(STATUS "LIBCURL_LIBRARY_PATH  = ${LIBCURL_LIBRARY_PATH}")
-# message(STATUS "LIBTAG_INCLUDE_PATH   = ${LIBTAG_INCLUDE_PATH}")
-# message(STATUS "LIBTAG_LIBRARY_PATH   = ${LIBTAG_LIBRARY_PATH}")
-# message(STATUS "LIBSWELL_INCLUDE_PATH = ${LIBSWELL_INCLUDE_PATH}")
-# message(STATUS "LIBSWELL_SOURCE_PATH  = ${LIBSWELL_SOURCE_PATH}")
-# message(STATUS "LIBSSL_LIBRARY_PATH   = ${LIBSSL_LIBRARY_PATH}")
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+set(PUBLIC_INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/include/ultraschall")
+include_directories(${PUBLIC_INCLUDE_PATH})
+
+set(ULTRASCHALL_RUNTIME_NAME            ultraschallrt)
+set(ULTRASCHALL_MODEL_NAME              ultraschallmd)
+set(ULTRASCHALL_SOUTHBOUND_GATEWAY_NAME ultraschallsbgw)
+set(ULTRASCHALL_NORTHBOUND_GATEWAY_NAME ultraschallnbgw)
 
 add_subdirectory(src)

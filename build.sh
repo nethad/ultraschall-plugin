@@ -30,28 +30,25 @@ source scripts/BuildTools.sh
 
 TOOLS_DIRECTORY=`pwd`/tools
 BUILD_DIRECTORY=`pwd`/build
-BUILD_CONFIGURATION=Debug
 CMAKE_EXTRA_ARGS=""
 
 if [ "$1" = "--help" ]; then
-  echo "Usage: build.sh [ --bootstrap | --rebuild | --clean | --cleanall ]"
+  echo "Usage: build.sh [ --bootstrap | --rebuild | --clean | --clean-all ]"
   exit 0
 elif [ "$1" = "--bootstrap" ]; then
   RemoveDirectory $BUILD_DIRECTORY
   RemoveDirectory $TOOLS_DIRECTORY
   source ./bootstrap.sh
   exit 0
-elif [ "$1" = "--cleanall" ]; then
+elif [ "$1" = "--clean-all" ]; then
   RemoveDirectory $BUILD_DIRECTORY
   RemoveDirectory $TOOLS_DIRECTORY
   exit 0
 elif [ "$1" = "--clean" ]; then
   RemoveDirectory $BUILD_DIRECTORY
-  exit 0
+  exit 0_
 elif [ "$1" == "--rebuild" ]; then
   CMAKE_EXTRA_ARGS="--clean-first"
-elif [ "$1" == "--release" ]; then
-  BUILD_CONFIGURATION=Release
 fi
 
 CMAKE_INSTALL_DIRECTORY=$TOOLS_DIRECTORY/cmake
@@ -86,6 +83,18 @@ if [ $CMAKE_INSTALL_FOUND -eq 0 ]; then
 fi
 
 if [ $CMAKE_INSTALL_FOUND -ne 0 ]; then
+  CMAKE_GENERATOR="<unknown>"
+  HOST_SYSTEM_TYPE=`uname`
+  if [ "$HOST_SYSTEM_TYPE" = "Linux" ]; then
+    CMAKE_GENERATOR="Unix Makefiles"
+  elif [ "$HOST_SYSTEM_TYPE" = "Darwin" ]; then
+    # CMAKE_GENERATOR="Xcode"
+    CMAKE_GENERATOR="Unix Makefiles"
+  else
+    echo "Failed to detect the host system type. Only \"Linux\" or \"Darwin\" are supported. The current host system type is \"$HOST_SYSTEM_TYPE\""
+    exit -1
+  fi
+
   if [ ! -d $BUILD_DIRECTORY ]; then
     mkdir $BUILD_DIRECTORY
   fi
@@ -94,7 +103,7 @@ if [ $CMAKE_INSTALL_FOUND -ne 0 ]; then
   pushd $BUILD_DIRECTORY > /dev/null
 
   echo "Configuring projects using $CMAKE_GENERATOR..."
-  cmake -G"Unix Makefiles" -Wno-dev --warn-uninitialized --warn-unused-vars -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION ../
+  cmake -G"$CMAKE_GENERATOR" -DCMAKE_BUILD_TYPE=Debug ../
   if [ $? -ne 0 ]; then
     echo "Failed to configure projects."
     exit -1
@@ -102,7 +111,7 @@ if [ $CMAKE_INSTALL_FOUND -ne 0 ]; then
   echo "Done."
 
   echo "Building projects using $CMAKE_GENERATOR..."
-  cmake --build . $CMAKE_EXTRA_ARGS --target reaper_ultraschall --config $BUILD_CONFIGURATION -j 8
+  cmake --build . $CMAKE_EXTRA_ARGS --target reaper_ultraschall --config Debug -j 8
   if [ $? -ne 0 ]; then
     echo "Failed to build projects."
     exit -1

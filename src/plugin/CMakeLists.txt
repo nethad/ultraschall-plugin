@@ -1,0 +1,21 @@
+set(PLUGIN_INCLUDES
+  pluginapplication.h
+  pluginclass.h
+  plugincommon.h
+  plugininsertchapters.h
+  plugininsertchapters2.h
+  pluginresource.h
+  pluginsavechapters.h
+  pluginsavechapters2.h
+  pluginppdatehandler.h
+)
+
+set(PLUGIN_SOURCES
+  plugin.cpp
+  pluginapplication.cpp
+  plugininsertchapters.cpp
+  plugininsertchapters2.cpp
+  plugindavechapters.cpp
+  pluginsavechapters2.cpp
+  pluginupdatehandler.cpp
+)

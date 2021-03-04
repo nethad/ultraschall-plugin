@@ -1,0 +1,12 @@
+set(PLATFORM_INCLUDES
+  platform.h
+  platformendianess.h
+  platformcommon.h
+  platformfiledialog.h
+  platformfilesystem.h
+  platformglobals.h
+)
+set(PLATFORM_SOURCES
+  ${ULTRASCHALL_TARGET_SYSTEM}/platformfiledialog.cpp
+  ${ULTRASCHALL_TARGET_SYSTEM}/platformfilesystem.cpp
+)

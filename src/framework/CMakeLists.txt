@@ -1,0 +1,36 @@
+set(FRAMEWORK_INCLUDES
+  framework.h
+  frameworkclass.h
+  frameworkcommon.h
+  frameworkfilemanager.h
+  frameworkglobals.h
+  frameworkhttpclient.h
+  frameworkhttprequest.h
+  frameworkhttpresponse.h
+  frameworkid3v2.h
+  frameworkid3v2context.h
+  frameworkid3v2writer.h
+  frameworkitagwriter.h
+  frameworkpicture.h
+  frameworktagwriterfactory.h
+  frameworkxmlattribute.h
+  frameworkxmldocument.h
+  frameworkxmlelement.h
+  taglib_include.h
+
+)
+
+set(FRAMEWORK_SOURCES
+  frameworkfilemanager.cpp
+  frameworkhttpclient.cpp
+  frameworkhttprequest.cpp
+  frameworkhttpresponse.cpp
+  frameworkid3v2.cpp
+  frameworkid3v2context.cpp
+  frameworkid3v2writer.cpp
+  frameworkpicture.cpp
+  frameworktagwriterfactory.cpp
+  frameworkxmlattribute.cpp
+  frameworkxmlelement.cpp
+  frameworkxmldocument.cpp
+)

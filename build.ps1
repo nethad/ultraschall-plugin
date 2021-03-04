@@ -28,7 +28,6 @@
 
 $ToolsDirectory = "./tools"
 $BuildDirectory = "./build"
-$BuildConfig = "Debug"
 $CMakeExtraArgs = ""
 
 If ($args.Count -gt 0) {
@@ -42,7 +41,7 @@ If ($args.Count -gt 0) {
     . "bootstrap.ps1"
     Return
   }
-  ElseIf ($args[0] -eq "--cleanall") {
+  ElseIf ($args[0] -eq "--clean-all") {
     Remove-Directory $BuildDirectory
     Remove-Directory $ToolsDirectory
     Return
@@ -53,9 +52,6 @@ If ($args.Count -gt 0) {
   }
   ElseIf ($args[0] -eq "--rebuild") {
     $CMakeExtraArgs = "--clean-first"
-  }
-  ElseIf ($args[0] -eq "--release") {
-    $BuildConfig = "Release"
   }
 }
 
