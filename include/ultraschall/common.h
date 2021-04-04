@@ -24,10 +24,48 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef __ULTRASCHALL_MODEL_CLASS_H_INCL__
-#define __ULTRASCHALL_MODEL_CLASS_H_INCL__
+#ifndef __ULTRASCHALL_COMMON_H_INCL__
+#define __ULTRASCHALL_COMMON_H_INCL__
 
-#include <ultraschall/runtime.h>
-namespace runtime = ultraschall::runtime;
+#ifdef __GNUC__
+    #undef min
+    #undef max
+#endif // #ifdef __GNUC__
 
-#endif // #ifndef __ULTRASCHALL_MODEL_CLASS_H_INCL__
+#include <cctype>
+#include <cstdint>
+#include <cstdlib>
+
+#if defined(_MSC_VER)
+    #ifdef ULTRASCHALL_SHARED
+        #define ULTRASCHALL_API __declspec(dllexport)
+    #else
+        #define ULTRASCHALL_API __declspec(dllimport)
+    #endif
+#elif defined(__GNUC__)
+    #ifdef ULTRASCHALL_SHARED
+        #define ULTRASCHALL_API __attribute__((visibility("default")))
+    #else
+        #define ULTRASCHALL_API
+    #endif
+#else
+    #define ULTRASCHALL_API
+#endif
+
+#define PRECONDITION(a) \
+    {                   \
+        if((a) == 0) {  \
+            return;     \
+        }               \
+    }
+
+#define PRECONDITION_RETURN(a, b) \
+    {                             \
+        if((a) == 0) {            \
+            return (b);           \
+        }                         \
+    }
+
+#define ULTRASCHALL_VERSION "6.0"
+
+#endif // #ifndef __ULTRASCHALL_COMMON_H_INCL__

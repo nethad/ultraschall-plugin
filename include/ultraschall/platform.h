@@ -27,7 +27,7 @@
 #ifndef __ULTRASCHALL_PLATFORM_H_INCL__
 #define __ULTRASCHALL_PLATFORM_H_INCL__
 
-#include "PlatformFileSystem.h"
-#include "PlatformFileDialog.h"
+#include "platformfilesystem.h"
+#include "platformfiledialog.h"
 
 #endif // #ifndef __ULTRASCHALL_PLATFORM_H_INCL__

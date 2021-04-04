@@ -24,8 +24,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "FrameworkCommon.h"
-#include "FrameworkXmlDocument.h"
+#include "frameworkcommon.h"
+#include "frameworkxmldocument.h"
 
 namespace ultraschall { namespace reaper {
 }}

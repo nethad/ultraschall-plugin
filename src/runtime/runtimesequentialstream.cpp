@@ -24,8 +24,10 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <runtimemalloc.h>
-#include <runtimesequentialstream.h>
+#include <string>
+
+#include <ultraschall/runtimemalloc.h>
+#include <ultraschall/runtimesequentialstream.h>
 
 #include "runtimecommon.h"
 

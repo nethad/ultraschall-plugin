@@ -29,7 +29,6 @@
 
 #include <cstdint>
 #include <atomic>
-
 namespace ultraschall { namespace runtime {
 
 class SharedObject
@@ -45,8 +44,7 @@ public:
     const uint32_t Release()
     {
         const uint32_t refCount = --refCount_;
-        if(refCount == 0)
-        {
+        if(refCount == 0) {
             delete this;
         }
 

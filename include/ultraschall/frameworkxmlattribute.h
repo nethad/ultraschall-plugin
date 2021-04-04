@@ -29,7 +29,7 @@
 
 #include "expat.h"
 
-#include "FrameworkClass.h"
+#include "frameworkclass.h"
 
 namespace ultraschall { namespace reaper {
 }}

@@ -27,7 +27,7 @@
 #ifndef __ULTRASCHALL_PLATFORM_FILE_DIALOG_H_INCL__
 #define __ULTRASCHALL_PLATFORM_FILE_DIALOG_H_INCL__
 
-#include "PlatformClass.h"
+#include "platformclass.h"
 
 namespace ultraschall { namespace platform {
 

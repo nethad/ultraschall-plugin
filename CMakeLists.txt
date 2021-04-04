@@ -24,8 +24,7 @@
 #
 ################################################################################
 
-cmake_minimum_required(VERSION 3.12)
-project(reaper_ultraschall LANGUAGES C CXX VERSION 4.0)
+cmake_minimum_required(VERSION 3.19)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -57,16 +56,17 @@ endif()
 include(cmake/GlobalArgs.cmake)
 
 message(STATUS "ULTRASCHALL_TARGET_SYSTEM = " ${ULTRASCHALL_TARGET_SYSTEM})
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/${ULTRASCHALL_TARGET_SYSTEM}.cmake)
+# include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/${ULTRASCHALL_TARGET_SYSTEM}.cmake)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-set(PUBLIC_INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/include/ultraschall")
+set(PUBLIC_INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/include")
 include_directories(${PUBLIC_INCLUDE_PATH})
 
-set(ULTRASCHALL_RUNTIME_NAME            ultraschallrt)
-set(ULTRASCHALL_MODEL_NAME              ultraschallmd)
-set(ULTRASCHALL_SOUTHBOUND_GATEWAY_NAME ultraschallsbgw)
-set(ULTRASCHALL_NORTHBOUND_GATEWAY_NAME ultraschallnbgw)
+set(ULTRASCHALL_RUNTIME_NAME   ultraschall-runtime)
+set(ULTRASCHALL_PLATFORM_NAME  ultraschall-platform)
+set(ULTRASCHALL_MODEL_NAME     ultraschall-model)
+set(ULTRASCHALL_FRAMEWORK_NAME ultraschall-framework)
+set(ULTRASCHALL_PLUGIN_NAME    reaper_ultraschall)
 
 add_subdirectory(src)

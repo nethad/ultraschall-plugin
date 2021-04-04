@@ -1,9 +1,15 @@
+project(${ULTRASCHALL_MODEL_NAME} LANGUAGES C CXX VERSION 6.0)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 set(PUBLIC_MODEL_INCLUDES
-  ${PUBLIC_INCLUDE_PATH}/model.h
-  ${PUBLIC_INCLUDE_PATH}/modelchapterimage.h
-  ${PUBLIC_INCLUDE_PATH}/modelchaptertag.h
-  ${PUBLIC_INCLUDE_PATH}/modelchapterurl.h
-  ${PUBLIC_INCLUDE_PATH}/modelglobals.h
+  ${PUBLIC_INCLUDE_PATH}/ultraschall/common.h
+  ${PUBLIC_INCLUDE_PATH}/ultraschall/model.h
+  ${PUBLIC_INCLUDE_PATH}/ultraschall/modelchapterimage.h
+  ${PUBLIC_INCLUDE_PATH}/ultraschall/modelchaptertag.h
+  ${PUBLIC_INCLUDE_PATH}/ultraschall/modelchapterurl.h
+  ${PUBLIC_INCLUDE_PATH}/ultraschall/modelglobals.h
 )
 
 set(PRIVATE_MODEL_INCLUDES
@@ -17,7 +23,10 @@ set(PRIVATE_MODEL_SOURCES
 add_library(${ULTRASCHALL_MODEL_NAME} SHARED
   ${PUBLIC_MODEL_INCLUDES}
   ${PRIVATE_MODEL_INCLUDES}
-  ${PRIVATE_MODEL_INCLUDES}
+  ${PRIVATE_MODEL_SOURCES}
 )
+
+add_dependencies(${ULTRASCHALL_MODEL_NAME} ${ULTRASCHALL_RUNTIME_NAME})
+target_link_libraries(${ULTRASCHALL_MODEL_NAME} ${ULTRASCHALL_RUNTIME_NAME})
 
 set_target_properties(${ULTRASCHALL_MODEL_NAME} PROPERTIES LINKER_LANGUAGE CXX)

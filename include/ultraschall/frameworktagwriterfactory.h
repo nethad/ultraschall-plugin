@@ -27,8 +27,8 @@
 #ifndef __ULTRASCHALL_FRAMEWORK_TAG_WRITER_FACTORY_H_INCL__
 #define __ULTRASCHALL_FRAMEWORK_TAG_WRITER_FACTORY_H_INCL__
 
-#include "FrameworkClass.h"
-#include "FrameworkITagWriter.h"
+#include "frameworkclass.h"
+#include "frameworkitagwriter.h"
 
 namespace ultraschall { namespace framework {
 

@@ -51,33 +51,16 @@ elif [ "$1" == "--rebuild" ]; then
   CMAKE_EXTRA_ARGS="--clean-first"
 fi
 
-CMAKE_INSTALL_DIRECTORY=$TOOLS_DIRECTORY/cmake
 CMAKE_INSTALL_FOUND=0
-CMAKE_REQUIRED_VERSION="3.12.0"
+CMAKE_REQUIRED_VERSION="3.19.0"
 
-echo "Looking for CMake $CMAKE_REQUIRED_VERSION. Checking system install..."
 if [ $CMAKE_INSTALL_FOUND -eq 0 ]; then
   CMAKE_INSTALL_PATH=cmake
   if [ -x "$(command -v $CMAKE_INSTALL_PATH)" ]; then
     CMAKE_CURRENT_VERSION=`$CMAKE_INSTALL_PATH --version | sort -V | tail -n 1 | awk -v n=3 '{print $n}'`
-    echo "Found CMake version $CMAKE_CURRENT_VERSION."
     CompareVersions $CMAKE_CURRENT_VERSION $CMAKE_REQUIRED_VERSION
     if [ ! $? -eq 2 ]; then
       CMAKE_INSTALL_FOUND=1
-    fi
-  fi
-fi
-
-if [ $CMAKE_INSTALL_FOUND -eq 0 ]; then
-  echo "CMake $CMAKE_REQUIRED_VERSION does not seem to be installed on this system. Checking local install..."
-  CMAKE_INSTALL_PATH=$CMAKE_INSTALL_DIRECTORY/bin/cmake
-  if [ -x "$(command -v $CMAKE_INSTALL_PATH)" ]; then
-    CMAKE_CURRENT_VERSION=`$CMAKE_INSTALL_PATH --version | sort -V | tail -n 1 | awk -v n=3 '{print $n}'`
-    echo "Found CMake version $CMAKE_CURRENT_VERSION."
-    CompareVersions $CMAKE_CURRENT_VERSION $CMAKE_REQUIRED_VERSION
-    if [ ! $? -eq 2 ]; then
-      CMAKE_INSTALL_FOUND=1
-      export PATH=$CMAKE_INSTALL_DIRECTORY/bin:$PATH
     fi
   fi
 fi
@@ -103,7 +86,7 @@ if [ $CMAKE_INSTALL_FOUND -ne 0 ]; then
   pushd $BUILD_DIRECTORY > /dev/null
 
   echo "Configuring projects using $CMAKE_GENERATOR..."
-  cmake -G"$CMAKE_GENERATOR" -DCMAKE_BUILD_TYPE=Debug ../
+  cmake -Wno-dev -G"$CMAKE_GENERATOR" -DCMAKE_BUILD_TYPE=Debug -DULTRASCHALL_SHARED=1 ../
   if [ $? -ne 0 ]; then
     echo "Failed to configure projects."
     exit -1
@@ -111,7 +94,8 @@ if [ $CMAKE_INSTALL_FOUND -ne 0 ]; then
   echo "Done."
 
   echo "Building projects using $CMAKE_GENERATOR..."
-  cmake --build . $CMAKE_EXTRA_ARGS --target reaper_ultraschall --config Debug -j 8
+  # cmake --build . $CMAKE_EXTRA_ARGS --target reaper_ultraschall --config Debug -j 8
+  cmake --build . $CMAKE_EXTRA_ARGS --config Debug -j 8
   if [ $? -ne 0 ]; then
     echo "Failed to build projects."
     exit -1

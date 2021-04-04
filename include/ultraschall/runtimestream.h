@@ -27,8 +27,8 @@
 #ifndef __ULTRASCHALL_RUNTIME_STREAM_H_INCL__
 #define __ULTRASCHALL_RUNTIME_STREAM_H_INCL__
 
-#include "RuntimeGlobals.h"
-#include "RuntimeSharedObject.h"
+#include "runtimeglobals.h"
+#include "runtimesharedobject.h"
 
 namespace ultraschall { namespace runtime {
 
@@ -46,8 +46,6 @@ public:
     bool Write(const size_t offset, const uint8_t* buffer, const size_t bufferSize);
 
     bool Read(const size_t offset, uint8_t* buffer, const size_t bufferSize);
-
-    uint64_t CRC32() const;
 
 protected:
     virtual ~Stream();

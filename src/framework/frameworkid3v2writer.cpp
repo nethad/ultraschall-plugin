@@ -24,10 +24,10 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "FrameworkCommon.h"
-#include "FrameworkID3V2Writer.h"
-#include "FrameworkID3V2Context.h"
-#include "FrameworkID3V2.h"
+#include "frameworkcommon.h"
+#include "frameworkid3v2writer.h"
+#include "frameworkid3v2context.h"
+#include "frameworkid3v2.h"
 
 namespace ultraschall { namespace framework {
 
@@ -44,8 +44,7 @@ bool ID3V2Writer::Start(const runtime::String& targetName)
     bool contextStarted = false;
 
     pContext_ = ID3V2StartTransaction(targetName);
-    if(pContext_ != nullptr)
-    {
+    if(pContext_ != nullptr) {
         ID3V2RemoveAllFrames(pContext_);
         contextStarted = true;
     }
@@ -57,12 +56,10 @@ void ID3V2Writer::Stop(const bool commit)
 {
     PRECONDITION(pContext_ != nullptr);
 
-    if(true == commit)
-    {
+    if(true == commit) {
         ID3V2CommitTransaction(pContext_);
     }
-    else
-    {
+    else {
         ID3V2AbortTransaction(pContext_);
     }
 }
@@ -76,13 +73,11 @@ bool ID3V2Writer::InsertProperties(const runtime::String& targetName, const runt
     bool success = true;
 
     runtime::String durationString;
-    if(mediaData.count("TLEN") > 0)
-    {
+    if(mediaData.count("TLEN") > 0) {
         durationString = mediaData.at("TLEN");
     }
 
-    if(durationString.empty() == true)
-    {
+    if(durationString.empty() == true) {
         durationString = runtime::StringFromInt(pContext_->Duration());
     }
 
@@ -104,17 +99,14 @@ bool ID3V2Writer::InsertProperties(const runtime::String& targetName, const runt
         {"COMM", runtime::UTF16, mediaData.at("description")}};
     const size_t maxComplexFrames = sizeof(complexFrameMappings) / sizeof(complexFrameMappings[0]);
 
-    for(size_t i = 0; (i < maxSimpleFrames) && (true == success); i++)
-    {
+    for(size_t i = 0; (i < maxSimpleFrames) && (true == success); i++) {
         success = ID3V2InsertTextFrame(
             pContext_, simpleFrameMappings[i].frameId, simpleFrameMappings[i].text,
             simpleFrameMappings[i].targetEncoding);
     }
 
-    if(true == success)
-    {
-        for(size_t i = 0; (i < maxComplexFrames) && (true == success); i++)
-        {
+    if(true == success) {
+        for(size_t i = 0; (i < maxComplexFrames) && (true == success); i++) {
             success = ID3V2InsertCommentsFrame(pContext_, complexFrameMappings[i].text);
         }
     }
@@ -142,8 +134,7 @@ bool ID3V2Writer::InsertChapterMarkers(const runtime::String& targetName, const 
 
     runtime::StringArray tableOfContentsItems;
     success = true;
-    for(size_t i = 0; (i < chapterMarkers.size()) && (true == success); i++)
-    {
+    for(size_t i = 0; (i < chapterMarkers.size()) && (true == success); i++) {
         std::stringstream chapterId;
         chapterId << "chp" << i;
         runtime::String tableOfContensItem = chapterId.str();
@@ -158,8 +149,7 @@ bool ID3V2Writer::InsertChapterMarkers(const runtime::String& targetName, const 
             chapterMarkers[i].Url());
     }
 
-    if(true == success)
-    {
+    if(true == success) {
         success = ID3V2InsertTableOfContentsFrame(pContext_, tableOfContentsItems);
     }
 

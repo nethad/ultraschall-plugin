@@ -29,8 +29,8 @@
 
 #include <cstdint>
 
-#include "Runtime.h"
-#include "Model.h"
+#include "runtime.h"
+#include "model.h"
 
 namespace runtime = ultraschall::runtime;
 namespace model   = ultraschall::model;

@@ -24,9 +24,9 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "FrameworkCommon.h"
-#include "FrameworkFileManager.h"
-#include "Platform.h"
+#include "frameworkcommon.h"
+#include "frameworkfilemanager.h"
+#include "platform.h"
 
 namespace ultraschall { namespace framework {
 
@@ -46,13 +46,11 @@ runtime::String FileManager::StripPath(const runtime::String& path)
 
     runtime::String shortName;
 
-    if(path.empty() == false)
-    {
+    if(path.empty() == false) {
         shortName = path;
 
         const runtime::String::size_type offset = path.rfind(FileManager::PathSeparator());
-        if(offset != runtime::String::npos)
-        {
+        if(offset != runtime::String::npos) {
             shortName = path.substr(offset + 1, path.size()); // skip separator
         }
     }
@@ -72,8 +70,7 @@ bool FileManager::FileExists(const runtime::String& filename)
     bool fileExists = false;
 
     std::ifstream is(U2H(filename), std::ios::in | std::ios::binary);
-    if(is.is_open() == true)
-    {
+    if(is.is_open() == true) {
         fileExists = true;
         is.close();
     }
@@ -87,10 +84,8 @@ size_t FileManager::FileExists(const runtime::StringArray& paths)
 
     size_t offset = -1;
 
-    for(size_t i = 0; (i < paths.size()) && (offset == -1); i++)
-    {
-        if(FileExists(paths[i]) == true)
-        {
+    for(size_t i = 0; (i < paths.size()) && (offset == -1); i++) {
+        if(FileExists(paths[i]) == true) {
             offset = i;
         }
     }
@@ -105,8 +100,7 @@ runtime::String FileManager::QueryFileDirectory(const runtime::String& filename)
     runtime::String directory = ".";
 
     size_t offset = filename.find_last_of(platform::FileSystem::QueryPathSeparator());
-    if(offset != std::string::npos)
-    {
+    if(offset != std::string::npos) {
         directory = filename.substr(0, offset);
     }
 
@@ -121,8 +115,7 @@ size_t FileManager::QueryFileSize(const runtime::String& filename)
     size_t size = -1;
 
     std::ifstream file(U2H(filename), std::ios::in | std::ios::binary | std::ios::ate);
-    if(file.is_open() == true)
-    {
+    if(file.is_open() == true) {
         size = file.tellg();
         file.close();
     }
@@ -144,30 +137,23 @@ FileManager::FILE_TYPE FileManager::QueryFileType(const runtime::String& filenam
     FILE_TYPE             type             = FILE_TYPE::UNKNOWN_FILE_TYPE;
     const runtime::String cookedTargetName = NormalizeFileName(filename);
     const size_t          extensionOffset  = cookedTargetName.rfind(".");
-    if(extensionOffset != runtime::String::npos)
-    {
+    if(extensionOffset != runtime::String::npos) {
         const runtime::String fileExtension =
             cookedTargetName.substr(extensionOffset + 1, cookedTargetName.length() - extensionOffset);
-        if(fileExtension.empty() == false)
-        {
-            if((fileExtension == "txt") || (fileExtension == "mp4chaps"))
-            {
+        if(fileExtension.empty() == false) {
+            if((fileExtension == "txt") || (fileExtension == "mp4chaps")) {
                 type = FILE_TYPE::MP4CHAPS;
             }
-            else if(fileExtension == "mp3")
-            {
+            else if(fileExtension == "mp3") {
                 type = FILE_TYPE::MP3;
             }
-            else if((fileExtension == "jpg") || (fileExtension == "jpeg"))
-            {
+            else if((fileExtension == "jpg") || (fileExtension == "jpeg")) {
                 type = FILE_TYPE::JPEG;
             }
-            else if(fileExtension == "png")
-            {
+            else if(fileExtension == "png") {
                 type = FILE_TYPE::PNG;
             }
-            else
-            {
+            else {
                 type = FILE_TYPE::UNKNOWN_FILE_TYPE;
             }
         }
@@ -184,8 +170,7 @@ bool FileManager::IsDiskSpaceAvailable(const runtime::String& filename, const si
     bool isAvailable = false;
 
     const size_t availableSpace = platform::FileSystem::QueryAvailableDiskSpace(QueryFileDirectory(filename));
-    if(availableSpace != -1)
-    {
+    if(availableSpace != -1) {
         isAvailable = (requiredBytes <= availableSpace);
     }
 
@@ -199,23 +184,17 @@ runtime::Stream* FileManager::ReadBinaryFile(const runtime::String& filename)
     runtime::Stream* pStream = nullptr;
 
     const size_t fileSize = QueryFileSize(filename);
-    if(fileSize != -1)
-    {
+    if(fileSize != -1) {
         std::ifstream file(U2H(filename), std::ios::in | std::ios::binary);
-        if(file.is_open() == true)
-        {
+        if(file.is_open() == true) {
             uint8_t* buffer = new uint8_t[fileSize];
-            if(buffer != nullptr)
-            {
+            if(buffer != nullptr) {
                 file.read(reinterpret_cast<char*>(buffer), fileSize);
-                if(file)
-                {
+                if(file) {
                     pStream = new runtime::Stream(fileSize);
-                    if(pStream != nullptr)
-                    {
+                    if(pStream != nullptr) {
                         const bool succeeded = pStream->Write(0, buffer, fileSize);
-                        if(succeeded == false)
-                        {
+                        if(succeeded == false) {
                             runtime::SafeRelease(pStream);
                         }
                     }
@@ -240,8 +219,7 @@ runtime::StringArray FileManager::ReadTextFile(const runtime::String& filename)
 
     std::ifstream   is(U2H(filename).c_str());
     runtime::String line;
-    while(std::getline(is, line))
-    {
+    while(std::getline(is, line)) {
         lines.push_back(line);
     }
 
@@ -257,8 +235,7 @@ bool FileManager::WriteTextFile(const runtime::String& filename, const runtime::
     bool status = false;
 
     std::ofstream os(U2H(filename).c_str());
-    if(os.is_open() == true)
-    {
+    if(os.is_open() == true) {
         os << str;
         os.close();
         status = true;

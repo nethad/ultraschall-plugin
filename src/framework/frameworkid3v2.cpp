@@ -24,10 +24,10 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "FrameworkCommon.h"
-#include "FrameworkID3V2.h"
-#include "FrameworkFileManager.h"
-#include "FrameworkPicture.h"
+#include "frameworkcommon.h"
+#include "frameworkid3v2.h"
+#include "frameworkfilemanager.h"
+#include "frameworkpicture.h"
 
 namespace ultraschall { namespace framework {
 
@@ -75,20 +75,17 @@ bool InsertUTF16TextFrame(ID3V2Context* pContext, const runtime::String& id, con
 
     bool success = false;
 
-    if(text.empty() == false)
-    {
+    if(text.empty() == false) {
         taglib_id3v2::TextIdentificationFrame* pTextFrame = new taglib_id3v2::TextIdentificationFrame(
             taglib::ByteVector::fromCString(id.c_str()), taglib::String::Type::UTF16);
-        if(pTextFrame != 0)
-        {
+        if(pTextFrame != 0) {
             pTextFrame->setTextEncoding(taglib::String::Type::UTF16);
             pTextFrame->setText(taglib::String(text, taglib::String::Type::UTF8));
             pContext->Tags()->addFrame(pTextFrame);
             success = true;
         }
     }
-    else
-    {
+    else {
         success = true;
     }
 
@@ -103,20 +100,17 @@ bool InsertUTF8TextFrame(ID3V2Context* pContext, const runtime::String& id, cons
 
     bool success = false;
 
-    if(text.empty() == false)
-    {
+    if(text.empty() == false) {
         taglib_id3v2::TextIdentificationFrame* pTextFrame = new taglib_id3v2::TextIdentificationFrame(
             taglib::ByteVector::fromCString(id.c_str()), taglib::String::Type::UTF8);
-        if(pTextFrame != nullptr)
-        {
+        if(pTextFrame != nullptr) {
             pTextFrame->setTextEncoding(taglib::String::Type::Latin1);
             pTextFrame->setText(taglib::String(text, taglib::String::Type::UTF8));
             pContext->Tags()->addFrame(pTextFrame);
             success = true;
         }
     }
-    else
-    {
+    else {
         success = true;
     }
 
@@ -127,12 +121,10 @@ bool ID3V2InsertTextFrame(
     ID3V2Context* pContext, const runtime::String& id, const runtime::String& text,
     const runtime::CHAR_ENCODING encoding)
 {
-    if(runtime::UTF16 == encoding)
-    {
+    if(runtime::UTF16 == encoding) {
         return InsertUTF16TextFrame(pContext, id, text);
     }
-    else
-    {
+    else {
         return InsertUTF8TextFrame(pContext, id, text);
     }
 }
@@ -144,11 +136,9 @@ bool ID3V2InsertCommentsFrame(ID3V2Context* pContext, const runtime::String& tex
 
     bool success = false;
 
-    if(text.empty() == false)
-    {
+    if(text.empty() == false) {
         taglib_id3v2::CommentsFrame* pCommentsFrame = new taglib_id3v2::CommentsFrame(taglib::String::Type::UTF16);
-        if(pCommentsFrame != nullptr)
-        {
+        if(pCommentsFrame != nullptr) {
             pCommentsFrame->setLanguage(taglib::ByteVector::fromCString("eng"));
             pCommentsFrame->setTextEncoding(taglib::String::Type::UTF16);
             pCommentsFrame->setText(taglib::String(text, taglib::String::Type::UTF8));
@@ -156,8 +146,7 @@ bool ID3V2InsertCommentsFrame(ID3V2Context* pContext, const runtime::String& tex
             success = true;
         }
     }
-    else
-    {
+    else {
         success = true;
     }
 
@@ -182,20 +171,17 @@ bool ID3V2InsertChapterFrame(
     taglib_id3v2::ChapterFrame* pChapterFrame = new taglib_id3v2::ChapterFrame(
         taglib::ByteVector::fromCString(id.c_str(), static_cast<unsigned int>(id.length())), startTime, endTime,
         startOffset, endOffset);
-    if(pChapterFrame != nullptr)
-    {
+    if(pChapterFrame != nullptr) {
         taglib_id3v2::TextIdentificationFrame* pEmbeddedFrame = new taglib_id3v2::TextIdentificationFrame(
             taglib::ByteVector::fromCString("TIT2"), taglib::String::Type::UTF16);
-        if(pEmbeddedFrame != nullptr)
-        {
+        if(pEmbeddedFrame != nullptr) {
             pEmbeddedFrame->setTextEncoding(taglib::String::Type::UTF16);
             pEmbeddedFrame->setText(taglib::String(text, taglib::String::Type::UTF8));
             pChapterFrame->addEmbeddedFrame(pEmbeddedFrame);
             pContext->Tags()->addFrame(pChapterFrame);
             success = true;
         }
-        else
-        {
+        else {
             runtime::SafeDelete(pChapterFrame);
             success = false;
         }
@@ -219,12 +205,10 @@ taglib_id3v2::FrameList* CreateEmbeddedFrames(
     PRECONDITION_RETURN(title.empty() == false, nullptr);
 
     taglib_id3v2::FrameList* pFrameList = new taglib_id3v2::FrameList();
-    if(pFrameList != nullptr)
-    {
+    if(pFrameList != nullptr) {
         pFrameList->setAutoDelete(true);
 
-        if(title.empty() == false)
-        {
+        if(title.empty() == false) {
             taglib_id3v2::TextIdentificationFrame* pTitleFrame = new taglib_id3v2::TextIdentificationFrame(
                 taglib::ByteVector::fromCString("TIT2"), taglib::String::Type::UTF16);
             pTitleFrame->setTextEncoding(taglib::String::Type::UTF16);
@@ -233,8 +217,7 @@ taglib_id3v2::FrameList* CreateEmbeddedFrames(
             pFrameList->append(pTitleFrame);
         }
 
-        if(url.empty() == false)
-        {
+        if(url.empty() == false) {
             taglib_id3v2::UserUrlLinkFrame* pUrlFrame =
                 new taglib_id3v2::UserUrlLinkFrame(taglib::ByteVector::fromCString("WXXX"));
             pUrlFrame->setDescription(taglib::String("chapter url"));
@@ -243,21 +226,16 @@ taglib_id3v2::FrameList* CreateEmbeddedFrames(
             pFrameList->append(pUrlFrame);
         }
 
-        if(image.empty() == false)
-        {
+        if(image.empty() == false) {
             runtime::Stream* pPictureData = FileManager::ReadBinaryFile(image);
-            if(pPictureData != nullptr)
-            {
+            if(pPictureData != nullptr) {
                 uint8_t      imageHeader[10] = {0};
                 const size_t imageHeaderSize = 10;
-                if(pPictureData->Read(0, imageHeader, imageHeaderSize) == true)
-                {
+                if(pPictureData->Read(0, imageHeader, imageHeaderSize) == true) {
                     const runtime::String mimeType = Picture::FormatString(imageHeader, imageHeaderSize);
-                    if(mimeType.empty() == false)
-                    {
+                    if(mimeType.empty() == false) {
                         taglib_id3v2::AttachedPictureFrame* pPictureFrame = new AttachedPictureFrameV3();
-                        if(pPictureFrame != nullptr)
-                        {
+                        if(pPictureFrame != nullptr) {
                             pPictureFrame->setTextEncoding(taglib::String::Type::Latin1);
                             pPictureFrame->setMimeType(mimeType);
                             pPictureFrame->setType(taglib_id3v2::AttachedPictureFrame::Type::Other);
@@ -296,13 +274,11 @@ bool ID3V2InsertChapterFrame(
     const uint32_t           startOffset = 0xffffffff;
     const uint32_t           endOffset   = 0xffffffff;
     taglib_id3v2::FrameList* pFrameList  = CreateEmbeddedFrames(text, image, url);
-    if(pFrameList != nullptr)
-    {
+    if(pFrameList != nullptr) {
         taglib_id3v2::ChapterFrame* pChapterFrame = new taglib_id3v2::ChapterFrame(
             taglib::ByteVector::fromCString(id.c_str(), static_cast<unsigned int>(id.length())), startTime, endTime,
             startOffset, endOffset, *pFrameList);
-        if(pChapterFrame != nullptr)
-        {
+        if(pChapterFrame != nullptr) {
             pContext->Tags()->addFrame(pChapterFrame);
             success = true;
         }
@@ -322,12 +298,10 @@ bool ID3V2InsertTableOfContentsFrame(ID3V2Context* pContext, const runtime::Stri
     taglib::ByteVector                  tableOfContentsId = taglib::ByteVector::fromCString("toc");
     taglib_id3v2::TableOfContentsFrame* pTableOfContentsFrame =
         new taglib_id3v2::TableOfContentsFrame(tableOfContentsId);
-    if(pTableOfContentsFrame != nullptr)
-    {
+    if(pTableOfContentsFrame != nullptr) {
         pTableOfContentsFrame->setIsTopLevel(true);
         pTableOfContentsFrame->setIsOrdered(true);
-        for(size_t j = 0; j < tableOfContentsItems.size(); j++)
-        {
+        for(size_t j = 0; j < tableOfContentsItems.size(); j++) {
             pTableOfContentsFrame->addChildElement(taglib::ByteVector::fromCString(tableOfContentsItems[j].c_str()));
         }
 
@@ -347,18 +321,14 @@ bool ID3V2InsertCoverPictureFrame(ID3V2Context* pContext, const runtime::String&
     bool success = false;
 
     taglib_id3v2::AttachedPictureFrame* pPictureFrame = new AttachedPictureFrameV3();
-    if(pPictureFrame != nullptr)
-    {
+    if(pPictureFrame != nullptr) {
         runtime::Stream* pPictureData = FileManager::ReadBinaryFile(image);
-        if(pPictureData != nullptr)
-        {
+        if(pPictureData != nullptr) {
             uint8_t      imageHeader[10] = {0};
             const size_t imageHeaderSize = 10;
-            if(pPictureData->Read(0, imageHeader, imageHeaderSize) == true)
-            {
+            if(pPictureData->Read(0, imageHeader, imageHeaderSize) == true) {
                 const runtime::String mimeType = Picture::FormatString(imageHeader, imageHeaderSize);
-                if(mimeType.empty() == false)
-                {
+                if(mimeType.empty() == false) {
                     pPictureFrame->setMimeType(mimeType);
                     const char*        pData    = reinterpret_cast<const char*>(pPictureData->Data());
                     unsigned int       dataSize = static_cast<unsigned int>(pPictureData->DataSize());

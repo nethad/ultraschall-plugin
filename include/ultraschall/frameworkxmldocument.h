@@ -27,8 +27,8 @@
 #ifndef __ULTRASCHALL_FRAMEWORK_XML_DOCUMENT_H_INCL__
 #define __ULTRASCHALL_FRAMEWORK_XML_DOCUMENT_H_INCL__
 
-#include "FrameworkClass.h"
-#include "FrameworkXmlElement.h"
+#include "frameworkclass.h"
+#include "frameworkxmlelement.h"
 
 namespace ultraschall { namespace reaper {
 }}

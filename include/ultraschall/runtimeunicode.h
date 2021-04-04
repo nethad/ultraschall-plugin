@@ -24,10 +24,35 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef __ULTRASCHALL_MODEL_CLASS_H_INCL__
-#define __ULTRASCHALL_MODEL_CLASS_H_INCL__
+#ifndef __ULTRASCHALL_RUNTIME_UNICODE_H_INCL__
+#define __ULTRASCHALL_RUNTIME_UNICODE_H_INCL__
 
-#include <ultraschall/runtime.h>
-namespace runtime = ultraschall::runtime;
+namespace ultraschall { namespace runtime {
 
-#endif // #ifndef __ULTRASCHALL_MODEL_CLASS_H_INCL__
+typedef enum
+{
+    UTF8,
+    UTF16
+} CHAR_ENCODING;
+
+typedef enum
+{
+    NO_UTF16_BOM      = 0,
+    WITH_UTF16_BOM_LE = 1,
+    WITH_UTF16_BOM_BE = 2
+} UTF16_BOM_SPEC;
+
+static const char16_t* UTF16_BOM_LE = u"\xfffe"; // intel
+static const char16_t* UTF16_BOM_BE = u"\xfeff";
+
+typedef enum
+{
+    NO_UTF8_BOM   = 0,
+    WITH_UTF8_BOM = 1
+} UTF8_BOM_SPEC;
+
+static const char* UTF8_BOM = "\xef\xbb\xbf";
+
+}} // namespace ultraschall::runtime
+
+#endif // #ifndef __ULTRASCHALL_RUNTIME_UNICODE_H_INCL__

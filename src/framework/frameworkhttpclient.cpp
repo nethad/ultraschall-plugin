@@ -30,13 +30,13 @@
 #include <curl/curl.h>
 #include <curl/easy.h>
 
-#include "RuntimeMalloc.h"
-#include "RuntimeSequentialStream.h"
+#include "runtimemalloc.h"
+#include "runtimesequentialstream.h"
 
-#include "FrameworkCommon.h"
-#include "FrameworkHttpClient.h"
-#include "FrameworkHttpRequest.h"
-#include "FrameworkHttpResponse.h"
+#include "frameworkcommon.h"
+#include "frameworkhttpclient.h"
+#include "frameworkhttprequest.h"
+#include "frameworkhttpresponse.h"
 
 namespace ultraschall { namespace framework {
 
@@ -44,8 +44,7 @@ HttpClient::HttpClient() : handle_(curl_easy_init()) {}
 
 HttpClient::~HttpClient()
 {
-    if(handle_ != nullptr)
-    {
+    if(handle_ != nullptr) {
         curl_easy_cleanup(handle_);
         handle_ = nullptr;
     }
@@ -59,11 +58,9 @@ runtime::String HttpClient::DownloadUrl(const runtime::String& url)
     runtime::String result;
 
     const runtime::String encodedUrl = EncodeUrl(url);
-    if(encodedUrl.empty() == false)
-    {
+    if(encodedUrl.empty() == false) {
         HttpRequest* pRequest = HttpRequest::Create(HttpRequestType::GET, encodedUrl);
-        if(pRequest != nullptr)
-        {
+        if(pRequest != nullptr) {
             curl_easy_setopt(handle_, CURLOPT_URL, pRequest->Url().c_str());
             curl_easy_setopt(handle_, CURLOPT_FOLLOWLOCATION, 1L);
             curl_easy_setopt(handle_, CURLOPT_NOSIGNAL, 1);
@@ -71,15 +68,12 @@ runtime::String HttpClient::DownloadUrl(const runtime::String& url)
             curl_easy_setopt(handle_, CURLOPT_WRITEFUNCTION, ReceiveDataHandler);
 
             runtime::SequentialStream* pStream = new runtime::SequentialStream();
-            if(pStream != nullptr)
-            {
+            if(pStream != nullptr) {
                 curl_easy_setopt(handle_, CURLOPT_WRITEDATA, pStream);
                 const CURLcode curlResult = curl_easy_perform(handle_);
-                if(CURLE_OK == curlResult)
-                {
+                if(CURLE_OK == curlResult) {
                     HttpResponse* pResponse = HttpResponse::Create(HttpResultCode::SUCCESS, pStream);
-                    if(pResponse != nullptr)
-                    {
+                    if(pResponse != nullptr) {
                         result = StreamToString(pResponse->Result());
                         runtime::SafeRelease(pResponse);
                     }
@@ -104,10 +98,8 @@ size_t HttpClient::ReceiveDataHandler(void* pData, size_t dataSize, size_t itemS
     size_t result = -1;
 
     runtime::SequentialStream* pStream = reinterpret_cast<runtime::SequentialStream*>(pParam);
-    if(pStream != nullptr)
-    {
-        if(pStream->Write(reinterpret_cast<uint8_t*>(pData), dataSize * itemSize) == true)
-        {
+    if(pStream != nullptr) {
+        if(pStream->Write(reinterpret_cast<uint8_t*>(pData), dataSize * itemSize) == true) {
             result = dataSize * itemSize;
         }
     }
@@ -125,8 +117,7 @@ runtime::String HttpClient::StreamToString(const runtime::SequentialStream* pStr
 
     const size_t   stringSize = pStream->DataSize() + sizeof(runtime::Char);
     runtime::Char* pString    = new runtime::Char[stringSize];
-    if(pString != nullptr)
-    {
+    if(pString != nullptr) {
         memset(pString, 0, stringSize);
         memcpy(pString, pStream->Data(), pStream->DataSize());
         result = pString;
@@ -144,11 +135,9 @@ runtime::String HttpClient::EncodeUrl(const runtime::String& url)
     runtime::String encodedUrl;
 
     void* curlHandle = curl_easy_init();
-    if(curlHandle != nullptr)
-    {
+    if(curlHandle != nullptr) {
         char* urlBuffer = curl_easy_escape(curlHandle, url.c_str(), static_cast<int>(url.length()));
-        if(urlBuffer != nullptr)
-        {
+        if(urlBuffer != nullptr) {
             encodedUrl = urlBuffer;
             curl_free(urlBuffer);
             urlBuffer = nullptr;
@@ -168,11 +157,9 @@ runtime::String HttpClient::DecodeUrl(const runtime::String& url)
     runtime::String decodedUrl;
 
     void* curlHandle = curl_easy_init();
-    if(curlHandle != nullptr)
-    {
+    if(curlHandle != nullptr) {
         char* urlBuffer = curl_easy_unescape(curlHandle, url.c_str(), static_cast<int>(url.length()), nullptr);
-        if(urlBuffer != nullptr)
-        {
+        if(urlBuffer != nullptr) {
             decodedUrl = urlBuffer;
             curl_free(urlBuffer);
             urlBuffer = nullptr;

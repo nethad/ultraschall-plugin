@@ -24,11 +24,15 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <runtimestringutilities.h>
+#include <iomanip>
+
+#include <ultraschall/runtimestringutilities.h>
 
 #include "runtimecommon.h"
 
 namespace ultraschall { namespace runtime {
+
+#if 0
 
 StringArray StringTokenize(const String& input, const char delimiter)
 {
@@ -339,4 +343,5 @@ double StringToSeconds(const String& str)
     return result;
 }
 
+#endif
 }} // namespace ultraschall::runtime

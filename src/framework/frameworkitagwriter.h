@@ -27,7 +27,7 @@
 #ifndef __ULTRASCHALL_FRAMEWORK_ITAG_WRITER_H_INCL__
 #define __ULTRASCHALL_FRAMEWORK_ITAG_WRITER_H_INCL__
 
-#include "FrameworkClass.h"
+#include "frameworkclass.h"
 
 namespace ultraschall { namespace framework {
 

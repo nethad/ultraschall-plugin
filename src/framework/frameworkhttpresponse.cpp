@@ -24,8 +24,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "FrameworkCommon.h"
-#include "FrameworkHttpResponse.h"
+#include "frameworkcommon.h"
+#include "frameworkhttpresponse.h"
 
 namespace ultraschall { namespace framework {
 
@@ -37,8 +37,7 @@ HttpResponse* HttpResponse::Create(const HttpResultCode resultCode, runtime::Seq
 HttpResponse::HttpResponse(const HttpResultCode resultCode, runtime::SequentialStream* pStream) :
     resultCode_(resultCode), pStream_(pStream)
 {
-    if(pStream_ != nullptr)
-    {
+    if(pStream_ != nullptr) {
         pStream_->AddRef();
     }
 }

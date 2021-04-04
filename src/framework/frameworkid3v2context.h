@@ -27,7 +27,7 @@
 #ifndef __ULTRASCHALL_FRAMEWORK_ID3V2_CONTEXT_H_INCL__
 #define __ULTRASCHALL_FRAMEWORK_ID3V2_CONTEXT_H_INCL__
 
-#include "FrameworkClass.h"
+#include "frameworkclass.h"
 #include "taglib_include.h"
 
 namespace ultraschall { namespace framework {

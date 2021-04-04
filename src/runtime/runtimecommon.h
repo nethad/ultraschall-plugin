@@ -27,49 +27,6 @@
 #ifndef __ULTRASCHALL_RUNTIME_COMMON_H_INCL__
 #define __ULTRASCHALL_RUNTIME_COMMON_H_INCL__
 
-#ifdef __GNUC__
-    #undef min
-    #undef max
-#endif // #ifdef __GNUC__
-
-#include <cctype>
-#include <cstdint>
-#include <cstdlib>
-
-#include <map>
-#include <string>
-#include <vector>
-#include <deque>
-
-#include <algorithm>
-#include <functional>
-#include <cmath>
-
-#include <sstream>
-#include <fstream>
-#include <iomanip>
-#include <locale>
-
-#include <atomic>
-#include <mutex>
-
-#include <chrono>
-#include <ctime>
-
-#define PRECONDITION(a) \
-    {                   \
-        if((a) == 0) {  \
-            return;     \
-        }               \
-    }
-
-#define PRECONDITION_RETURN(a, b) \
-    {                             \
-        if((a) == 0) {            \
-            return (b);           \
-        }                         \
-    }
-
-#define ULTRASCHALL_VERSION "6.0"
+#include <ultraschall/common.h>
 
 #endif // #ifndef __ULTRASCHALL_RUNTIME_COMMON_H_INCL__

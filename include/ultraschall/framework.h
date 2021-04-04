@@ -27,13 +27,13 @@
 #ifndef __ULTRASCHALL_FRAMEWORK_H_INCL__
 #define __ULTRASCHALL_FRAMEWORK_H_INCL__
 
-#include "FrameworkGlobals.h"
-#include "FrameworkFileManager.h"
-#include "FrameworkHttpClient.h"
-#include "FrameworkPicture.h"
-#include "FrameworkXmlDocument.h"
+#include "frameworkglobals.h"
+#include "frameworkfilemanager.h"
+#include "frameworkhttpclient.h"
+#include "frameworkpicture.h"
+#include "frameworkxmldocument.h"
 
-#include "FrameworkTagWriterFactory.h"
+#include "frameworktagwriterfactory.h"
 
 namespace framework = ultraschall::framework;
 

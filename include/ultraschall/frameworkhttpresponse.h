@@ -27,7 +27,7 @@
 #ifndef __ULTRASCHALL_FRAMEWORK_HTTP_RESPONSE_H_INCL__
 #define __ULTRASCHALL_FRAMEWORK_HTTP_RESPONSE_H_INCL__
 
-#include "FrameworkClass.h"
+#include "frameworkclass.h"
 
 namespace ultraschall { namespace framework {
 

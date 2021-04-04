@@ -27,7 +27,7 @@
 #ifndef __ULTRASCHALL_RUNTIME_SEQUENTIAL_STREAM_H_INCL__
 #define __ULTRASCHALL_RUNTIME_SEQUENTIAL_STREAM_H_INCL__
 
-#include "RuntimeSharedObject.h"
+#include "runtimesharedobject.h"
 
 namespace ultraschall { namespace runtime {
 
@@ -42,7 +42,7 @@ public:
 
     const uint8_t* Data() const;
 
-    bool Write(const uint8_t* buffer, const size_t bufferSize);
+    bool   Write(const uint8_t* buffer, const size_t bufferSize);
     size_t Read(uint8_t* buffer, const size_t bufferSize);
 
 protected:

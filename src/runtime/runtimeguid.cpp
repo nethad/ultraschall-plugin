@@ -24,10 +24,26 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef __ULTRASCHALL_MODEL_CLASS_H_INCL__
-#define __ULTRASCHALL_MODEL_CLASS_H_INCL__
+#include <ultraschall/runtimeguid.h>
 
-#include <ultraschall/runtime.h>
-namespace runtime = ultraschall::runtime;
+#include "runtimecommon.h"
 
-#endif // #ifndef __ULTRASCHALL_MODEL_CLASS_H_INCL__
+namespace ultraschall { namespace runtime {
+
+class Guid::Impl
+{
+private:
+};
+
+Guid::Guid() : pimpl_(new Guid::Impl()) {}
+
+Guid::~Guid()
+{
+   // SafeDelete(pimpl_);
+   if(pimpl_ != nullptr) {
+      delete pimpl_;
+      pimpl_ = nullptr;
+   }
+}
+
+}} // namespace ultraschall::runtime

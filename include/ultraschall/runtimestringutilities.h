@@ -27,12 +27,13 @@
 #ifndef __ULTRASCHALL_RUNTIME_STRING_UTILITIES_H_INCL__
 #define __ULTRASCHALL_RUNTIME_STRING_UTILITIES_H_INCL__
 
-#include "RuntimeString.h"
+#include "runtimestring.h"
 
 namespace ultraschall { namespace runtime {
 
-#define _MAKE_TEXT(str) #str
-#define MAKE_TEXT(str)  _MAKE_TEXT(str)
+#if 0
+    #define _MAKE_TEXT(str) #str
+    #define MAKE_TEXT(str)  _MAKE_TEXT(str)
 
 StringArray StringTokenize(const String& input, const char delimiter);
 
@@ -56,6 +57,8 @@ String   MillisecondsToString(const uint32_t milliseconds, const bool roundSecon
 uint32_t StringToMilliseconds(const String& str);
 String   SecondsToString(const double seconds, const bool roundSeconds = false);
 double   StringToSeconds(const String& str);
+
+#endif
 
 }} // namespace ultraschall::runtime
 

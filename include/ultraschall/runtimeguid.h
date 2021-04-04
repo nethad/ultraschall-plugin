@@ -24,10 +24,24 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef __ULTRASCHALL_MODEL_CLASS_H_INCL__
-#define __ULTRASCHALL_MODEL_CLASS_H_INCL__
+#ifndef __ULTRASCHALL_RUNTIME_GUID_H_INCL__
+#define __ULTRASCHALL_RUNTIME_GUID_H_INCL__
 
-#include <ultraschall/runtime.h>
-namespace runtime = ultraschall::runtime;
+#include <ultraschall/common.h>
 
-#endif // #ifndef __ULTRASCHALL_MODEL_CLASS_H_INCL__
+namespace ultraschall { namespace runtime {
+
+class ULTRASCHALL_API Guid
+{
+public:
+   Guid();
+   virtual ~Guid();
+
+private:
+   class Impl;
+   Impl* pimpl_;
+};
+
+}} // namespace ultraschall::runtime
+
+#endif // #ifndef __ULTRASCHALL_RUNTIME_GUID_H_INCL__

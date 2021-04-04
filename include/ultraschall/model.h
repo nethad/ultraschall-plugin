@@ -27,10 +27,10 @@
 #ifndef __ULTRASCHALL_MODEL_H_INCL__
 #define __ULTRASCHALL_MODEL_H_INCL__
 
-#include "ModelGlobals.h"
-#include "ModelChapterTag.h"
-#include "ModelChapterImage.h"
-#include "ModelChapterUrl.h"
+#include "modelglobals.h"
+#include "modelchaptertag.h"
+#include "modelchapterimage.h"
+#include "modelchapterurl.h"
 
 namespace model = ultraschall::model;
 

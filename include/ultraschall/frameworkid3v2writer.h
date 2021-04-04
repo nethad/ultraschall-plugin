@@ -27,9 +27,9 @@
 #ifndef __ULTRASCHALL_FRAMEWORK_ID3V2_WRITER_H_INCL__
 #define __ULTRASCHALL_FRAMEWORK_ID3V2_WRITER_H_INCL__
 
-#include "FrameworkClass.h"
-#include "FrameworkID3V2Context.h"
-#include "FrameworkITagWriter.h"
+#include "frameworkclass.h"
+#include "frameworkid3v2context.h"
+#include "frameworkitagwriter.h"
 
 namespace ultraschall { namespace framework {
 

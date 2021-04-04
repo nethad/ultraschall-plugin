@@ -24,8 +24,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "FrameworkCommon.h"
-#include "FrameworkHttpRequest.h"
+#include "frameworkcommon.h"
+#include "frameworkhttprequest.h"
 
 namespace ultraschall { namespace framework {
 

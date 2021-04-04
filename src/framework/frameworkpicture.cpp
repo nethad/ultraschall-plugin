@@ -24,9 +24,9 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "FrameworkCommon.h"
-#include "FrameworkPicture.h"
-#include "FrameworkFileManager.h"
+#include "frameworkcommon.h"
+#include "frameworkpicture.h"
+#include "frameworkfilemanager.h"
 
 namespace ultraschall { namespace framework {
 
@@ -36,17 +36,13 @@ Picture::FORMAT Picture::Format(const uint8_t* data, const size_t dataSize)
     PRECONDITION_RETURN(dataSize > 0, FORMAT::UNKNOWN_PICTURE);
 
     FORMAT format = FORMAT::UNKNOWN_PICTURE;
-    if(dataSize >= 2)
-    {
-        if((data[0] == 0xff) && (data[1] == 0xd8))
-        {
+    if(dataSize >= 2) {
+        if((data[0] == 0xff) && (data[1] == 0xd8)) {
             format = FORMAT::JPEG;
         }
 
-        if(dataSize >= 8)
-        {
-            if((data[0] == 0x89) && (data[1] == 0x50) && (data[2] == 0x4e) && (data[3] == 0x47))
-            {
+        if(dataSize >= 8) {
+            if((data[0] == 0x89) && (data[1] == 0x50) && (data[2] == 0x4e) && (data[3] == 0x47)) {
                 format = FORMAT::PNG;
             }
         }
@@ -66,10 +62,9 @@ Picture::FORMAT Picture::Format(const runtime::String& filename)
 {
     PRECONDITION_RETURN(filename.empty() == false, FORMAT::UNKNOWN_PICTURE);
 
-    FORMAT        format  = FORMAT::UNKNOWN_PICTURE;
+    FORMAT           format  = FORMAT::UNKNOWN_PICTURE;
     runtime::Stream* pStream = FileManager::ReadBinaryFile(filename);
-    if(pStream != nullptr)
-    {
+    if(pStream != nullptr) {
         format = Format(pStream);
 
         runtime::SafeRelease(pStream);
@@ -86,8 +81,7 @@ runtime::String Picture::FormatString(const uint8_t* data, const size_t dataSize
     runtime::String formatString;
 
     const FORMAT pictureFormat = Format(data, dataSize);
-    switch(pictureFormat)
-    {
+    switch(pictureFormat) {
         case FORMAT::JPEG:
         {
             formatString = "image/jpeg";
@@ -118,10 +112,9 @@ runtime::String Picture::FormatString(const runtime::String& filename)
 {
     PRECONDITION_RETURN(filename.empty() == false, runtime::String());
 
-    runtime::String formatString;
-    runtime::Stream*   pStream = FileManager::ReadBinaryFile(filename);
-    if(pStream != nullptr)
-    {
+    runtime::String  formatString;
+    runtime::Stream* pStream = FileManager::ReadBinaryFile(filename);
+    if(pStream != nullptr) {
         formatString = FormatString(pStream);
         runtime::SafeRelease(pStream);
     }
@@ -129,4 +122,4 @@ runtime::String Picture::FormatString(const runtime::String& filename)
     return formatString;
 }
 
-}} // namespace ultraschall::reaper
+}} // namespace ultraschall::framework

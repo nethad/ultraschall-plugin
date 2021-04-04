@@ -24,8 +24,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "FrameworkCommon.h"
-#include "FrameworkID3V2Context.h"
+#include "frameworkcommon.h"
+#include "frameworkid3v2context.h"
 
 namespace ultraschall { namespace framework {
 

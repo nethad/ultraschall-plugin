@@ -27,8 +27,7 @@
 #ifndef __ULTRASCHALL_MODEL_CHAPTER_TAG_H_INCL__
 #define __ULTRASCHALL_MODEL_CHAPTER_TAG_H_INCL__
 
-#include "ModelClass.h"
-#include "ModelGlobals.h"
+#include "modelglobals.h"
 
 namespace ultraschall { namespace model {
 

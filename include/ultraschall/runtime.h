@@ -27,13 +27,13 @@
 #ifndef __ULTRASCHALL_RUNTIME_H_INCL__
 #define __ULTRASCHALL_RUNTIME_H_INCL__
 
-#include "RuntimeGlobals.h"
-#include "RuntimeMalloc.h"
-#include "RuntimeSharedObject.h"
-#include "RuntimeSequentialStream.h"
-#include "RuntimeStream.h"
-#include "RuntimeString.h"
-#include "RuntimeStringUtilities.h"
+#include "runtimeglobals.h"
+#include "runtimemalloc.h"
+#include "runtimesharedobject.h"
+#include "runtimesequentialstream.h"
+#include "runtimestream.h"
+#include "runtimestring.h"
+#include "runtimestringutilities.h"
 
 namespace runtime = ultraschall::runtime;
 
