@@ -30,6 +30,9 @@
 #include <ultraschall/common.h>
 #include <ultraschall/runtimeunicode.h>
 
+#pragma pack(push)
+#pragma pack(8)
+
 namespace ultraschall { namespace runtime {
 
 class ULTRASCHALL_API String
@@ -44,6 +47,8 @@ class ULTRASCHALL_API String
     class Impl;
     Impl* pimpl_;
 };
+
+#pragma pack(pop)
 
 }} // namespace ultraschall::runtime
 

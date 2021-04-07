@@ -27,11 +27,16 @@
 #ifndef __ULTRASCHALL_RUNTIME_GLOBALS_H_INCL__
 #define __ULTRASCHALL_RUNTIME_GLOBALS_H_INCL__
 
+#pragma pack(push)
+#pragma pack(8)
+
 namespace ultraschall { namespace runtime {
 
 struct Globals
 {};
 
 }} // namespace ultraschall::runtime
+
+#pragma pack(pop)
 
 #endif // #ifndef __ULTRASCHALL_RUNTIME_GLOBALS_H_INCL__

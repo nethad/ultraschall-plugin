@@ -29,6 +29,8 @@ cmake_minimum_required(VERSION 3.19)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+option(BUILD_SHARED_LIBS "build as shared libraries" ON)
+
 if(WIN32)
     set(ULTRASCHALL_TARGET_SYSTEM "win32")
 elseif(APPLE)
@@ -68,5 +70,9 @@ set(ULTRASCHALL_PLATFORM_NAME  ultraschall-platform)
 set(ULTRASCHALL_MODEL_NAME     ultraschall-model)
 set(ULTRASCHALL_FRAMEWORK_NAME ultraschall-framework)
 set(ULTRASCHALL_PLUGIN_NAME    reaper_ultraschall)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 add_subdirectory(src)

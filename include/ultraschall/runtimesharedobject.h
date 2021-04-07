@@ -29,6 +29,10 @@
 
 #include <cstdint>
 #include <atomic>
+
+#pragma pack(push)
+#pragma pack(8)
+
 namespace ultraschall { namespace runtime {
 
 class SharedObject
@@ -59,5 +63,7 @@ private:
 };
 
 }} // namespace ultraschall::runtime
+
+#pragma pack(pop)
 
 #endif // #ifndef __ULTRASCHALL_RUNTIME_SHARED_OBJECT_H_INCL__

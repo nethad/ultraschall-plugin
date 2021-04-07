@@ -30,6 +30,9 @@
 #include "runtimeglobals.h"
 #include "runtimesharedobject.h"
 
+#pragma pack(push)
+#pragma pack(8)
+
 namespace ultraschall { namespace runtime {
 
 class Stream : public SharedObject
@@ -56,5 +59,7 @@ private:
 };
 
 }} // namespace ultraschall::runtime
+
+#pragma pack(pop)
 
 #endif // #ifdef __ULTRASCHALL_RUNTIME_STREAM_H_INCL__

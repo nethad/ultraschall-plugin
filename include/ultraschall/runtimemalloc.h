@@ -28,6 +28,10 @@
 #define __ULTRASCHALL_RUNTIME_MALLOC_H_INCL__
 
 #include <cstdlib>
+
+#pragma pack(push)
+#pragma pack(8)
+
 namespace ultraschall { namespace runtime {
 
 template<class T> inline static T* SafeAlloc()
@@ -72,5 +76,7 @@ template<class T> inline static void SafeRelease(T*& ptr)
 }
 
 }} // namespace ultraschall::runtime
+
+#pragma pack(pop)
 
 #endif // #ifndef __ULTRASCHALL_RUNTIME_MALLOC_H_INCL__
